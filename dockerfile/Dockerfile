@@ -15,7 +15,7 @@ RUN yum install ppp pptpd iptables iptables.service -y \
 # 将net.ipv4.tcp_syncookies= 1
 # 改成 #net.ipv4.tcp_syncookies= 1
 # 保存并退出
-    && sed '2H;G' ../VPN-PW > /etc/ppp/chap-secrets
+    && sed '2H;G' ../VPN-PW >> /etc/ppp/chap-secrets
     && sed 's/(net.ipv4.ip_forward) = 0/$1 = 1' \
     && sed 's/(net.ipv4.tcp_syncookies= 1)/#$1' \
 # 执行以下命令使修改后的内核生效
