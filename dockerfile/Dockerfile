@@ -3,9 +3,9 @@ MAINTAINER jinzi9800 <33827226@qq.com>
 #安装vpn三宝
 RUN yum install ppp pptpd iptables iptables.service -y \
 #配置pptp
-    && sed 's/#(localip 192.168.0.1)\n#(remoteip 192.168.0.234-238,192.168.0.245)/$1\n$2 '>> /etc/pptpd.conf \
+    && sed 's/#(localip 192.168.0.1\n)#(remoteip 192.168.0.234-238,192.168.0.245)/$1$2' >> /etc/pptpd.conf \
 #编辑 options.pptpd
-    && sed 's/#(ms-dns 8.8.8.8\n)#(ms-dns 8.8.4.4)/$1\$2/'>> /etc/ppp/options.pptpd \
+    && sed 's/#(ms-dns 8.8.8.8\n)#(ms-dns 8.8.4.4)/$1$2' >> /etc/ppp/options.pptpd \
 #编辑 /etc/ppp/chap-secrets
 #    && sed '$aadmin pptpd 123456 ip地址' >> /etc/ppp/chap-secrets
 #修改内核设置，使其支持转发
@@ -32,7 +32,7 @@ RUN yum install ppp pptpd iptables iptables.service -y \
     && systemctl restart iptables.service \
 #重启pptp服务
 #[root@kuro ~]#/etc/init.d/pptpd restart
-    && systemctl restart pptpd \
+    && systemctl restart pptpd 
 #这里要注意一下，其实此时pptp还没运行起来。所以使用restart重启，会显示Shutting down pptp [FAILED]。还会有一个警告，可以忽略。如不放心可以再用以上命令重启一下pptp就非常顺利的运行了。
 #设置pptp和iptables随系统启动
 #[root@kuro ~]#chkconfig pptpd on
