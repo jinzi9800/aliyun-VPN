@@ -3,4 +3,5 @@ services: aliyun-vpn
   build:
     context: dockerfile/
     dockerfile: Dockerfile
-      volumes: -
+      volumes: - chap-secrets /etc/ppp/chap-secrets 
+
