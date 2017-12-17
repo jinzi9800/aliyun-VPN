@@ -3,7 +3,7 @@ MAINTAINER jinzi9800 <33827226@qq.com>
 #安装vpn三宝
 RUN yum install epel-release -y \
     && yum update -y \
-    && yum install ppp pptpd iptables iptables-service -y \
+    && yum install ppp pptpd iptables iptables-services -y \
 #配置pptp
     && sed -i -e 's/#\(localip 192.168.0.1\)/\1/' -e 's/#\(remoteip 192.168.0.234-238,192.168.0.245\)/\1/' /etc/pptpd.conf \
 #编辑 options.pptpd
@@ -15,8 +15,8 @@ RUN yum install epel-release -y \
  # 将net.ipv4.tcp_syncookies= 1
  # 改成 #net.ipv4.tcp_syncookies= 1
  # 保存并退出
-    && sed -i 's/\(net.ipv4.ip_forward\) = 0/\1 = 1/' \
-    && sed -i 's/\(net.ipv4.tcp_syncookies= 1\)/#\1/' \
+    && sed -i 's/\(net.ipv4.ip_forward\) = 0/\1 = 1/' /etc/sysctl.conf \
+    && sed -i 's/\(net.ipv4.tcp_syncookies= 1\)/#\1/' /etc/sysctl.conf \
  # 执行以下命令使修改后的内核生效
  # [root@kuro ~]#sysctl -p
     && sysctl -p \
